@@ -11,7 +11,7 @@ public class ChatServer {
     private List<ClientHandler> clients;
     private List<String> names;
 
-    public ChatServer(int port) {
+    public ChatServer(final int port) {
         this.port = port;
         this.clients = new ArrayList<>();
         this.names = new ArrayList<>();
@@ -23,7 +23,8 @@ public class ChatServer {
             while (true) {
                 Socket clientSocket = serverSocket.accept();
 
-                ClientHandler clientHandler = new ClientHandler(clientSocket, this);
+                ClientHandler clientHandler = new ClientHandler
+                        (clientSocket, this);
                 clients.add(clientHandler);
 
                 new Thread(clientHandler).start();
@@ -32,7 +33,7 @@ public class ChatServer {
             System.err.println("Error in server: " + e.getMessage());
         }
     }
-    public void ok(int type,ClientHandler sender){
+    public void ok(int type, ClientHandler sender){
         if(type == 1){
             System.out.println("New client connected: " + sender.getUsername());
         } else if (type == 2) {
@@ -41,15 +42,15 @@ public class ChatServer {
 
     }
 
-    public void createRoom(ClientHandler sender,List roomMember,String roomName){
-        chatRoom room = new chatRoom(roomName,roomMember);
+    public void createRoom(ClientHandler sender, List roomMember,String roomName){
+        chatRoom room = new chatRoom(roomName, roomMember);
             for (ClientHandler client : clients) {
                 if (roomMember.contains(client.getUsername())) {
                     client.addRoom(room);
                 }
         }
     }
-    public void roomchat(ClientHandler sender,String room,String message){
+    public void roomchat(ClientHandler sender, String room, String message){
         for(chatRoom room1:sender.rooms){
             if(room1.roomName.equals(room)){
                 for (ClientHandler client : clients) {

@@ -18,7 +18,7 @@ public class ClientHandler implements Runnable {
 
     public List<chatRoom> rooms;
 
-    public void addRoom(chatRoom a){
+    public void addRoom(final chatRoom a) {
         rooms.add(a);
         out.println("Someone invited you to join the chat room "+a.roomName+" the members of the chat room have "+a.roomMember.toString());
     }

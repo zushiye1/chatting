@@ -12,7 +12,8 @@ public class ChatClient {
     private final BufferedReader in;
     private final PrintWriter out;
 
-    public ChatClient(String serverAddress, int port) throws IOException {
+    public ChatClient(final String serverAddress, final int port)
+            throws IOException {
         socket = new Socket(serverAddress, port);
         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         out = new PrintWriter(socket.getOutputStream(), true);
@@ -29,12 +30,14 @@ public class ChatClient {
                     System.out.println(response);
                 }
             } catch (IOException ex) {
-                System.out.println("Error reading from server: " + ex.getMessage());
+                System.out.println("Error reading from server: "
+                        + ex.getMessage());
             }
         }).start();
 
         // 从标准输入读取用户输入的消息并发送给服务器
-        BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader userInput = new
+                BufferedReader(new InputStreamReader(System.in));
         String input;
         while ((input = userInput.readLine()) != null) {
             out.println(input);
