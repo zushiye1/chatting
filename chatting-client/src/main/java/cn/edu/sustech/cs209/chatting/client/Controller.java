@@ -32,6 +32,7 @@ public class Controller implements Initializable {
         dialog.setTitle("Login");
         dialog.setHeaderText(null);
         dialog.setContentText("Username:");
+        dialog.setContentText("Port:");
 
         Optional<String> input = dialog.showAndWait();
         if (input.isPresent() && !input.get().isEmpty()) {
